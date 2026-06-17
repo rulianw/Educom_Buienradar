@@ -1,23 +1,11 @@
-@* This is the C# equivalent of index.html + view.js combined.
-    In the JS project the HTML was static and the weather grid was
-    injected into <div id="weatherResult"> by renderWeather().
-
-    In Razor, the page is re-rendered on the server on every request,
-    so we just put the markup directly in the view and let the model
-    (@model) provide the data. *@
 @model WeatherViewModel
 
 <div class="dropdown">
-    @* A normal <form> replaces the JS-driven <select onchange="...">.
-        When the user picks a city and submits, the browser performs
-        a GET to the same URL with ?city=..., which our controller's
-        Index(string? city) handles. *@
     <form method="get" action="/Weather">
         <select id="city-select" name="city" class="dropbtn" onchange="this.form.submit()">
             <option value="">-- Kies een stad --</option>
             @foreach (var city in Model.Cities)
             {
-                @* `selected` keeps the previously chosen city in the dropdown. *@
                 if (!string.IsNullOrEmpty(Model.SelectedCity) &&
                     string.Equals(city, Model.SelectedCity, StringComparison.OrdinalIgnoreCase))
                 {
@@ -29,10 +17,22 @@
                 }
             }
         </select>
+
+        @* New — date pickers *@
+        <div class="date-pickers">
+            <label>Startdatum:
+                <input type="date" name="startdatum" 
+                       value="@Model.Startdatum.ToString("yyyy-MM-dd")" />
+            </label>
+            <label>Einddatum:
+                <input type="date" name="einddatum" 
+                       value="@(Model.Einddatum?.ToString("yyyy-MM-dd") ?? "")" />
+            </label>
+            <button type="submit">Toon grafiek</button>
+        </div>
     </form>
 </div>
 
-@* ---- This section replaces renderWeather(weather) from view.js ---- *@
 @if (Model.Data is not null)
 {
     <div id="weatherResult">
@@ -82,8 +82,54 @@
         </div>
     </div>
 }
+
+@* New — graph section *@
+@if (Model.HistoricalData.Count > 0)
+{
+    <div class="graph-section">
+        <h3>Temperatuur over periode</h3>
+        <canvas id="weatherChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+            Enumerable.Range(1, Model.HistoricalData.Count)
+                      .Select(i => i.ToString())
+                      .ToList()
+        ));
+
+        const temperatures = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+            Model.HistoricalData.Select(d => d.ActueleTemperatuur).ToList()
+        ));
+
+        const ctx = document.getElementById('weatherChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Actuele temperatuur (°C)',
+                    data: temperatures,
+                    borderColor: '#4AD6ED',
+                    backgroundColor: 'rgba(74, 214, 237, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true }
+                },
+                scales: {
+                    y: { beginAtZero: false }
+                }
+            }
+        });
+    </script>
+}
 else if (!string.IsNullOrWhiteSpace(Model.SelectedCity))
 {
-    @* If a city was selected but we could not find it. *@
     <p style="text-align:center;">Geen gegevens gevonden voor "@Model.SelectedCity".</p>
 }

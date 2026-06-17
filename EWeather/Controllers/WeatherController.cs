@@ -12,10 +12,12 @@ namespace EWeather.Controllers;
 public class WeatherController : Controller
 {
     private readonly IWeatherService _weather;
+    private readonly IDatabaseService _db;
 
-    public WeatherController(IWeatherService weather)
+    public WeatherController(IWeatherService weather, IDatabaseService db)
     {
         _weather = weather;
+        _db = db;
     }
 
     // GET /Weather/Index  or simply / (because of the default route)
@@ -28,14 +30,19 @@ public class WeatherController : Controller
     //     and passes it to the view.
     //   * When the user picks a city, a normal form POST to
     //     `/?city=...` re-renders the page with that city's data.
-    public async Task<IActionResult> Index(string? city)
+    public async Task<IActionResult> Index(string? city, DateTime? startdatum, DateTime? einddatum)
     {
         var cities = await _weather.GetAllCitiesAsync();
+        var start = startdatum ?? DateTime.Today;
+        var eind = einddatum ?? start.AddDays(7);
+        
         var viewModel = new WeatherViewModel
         {
             Cities = cities,
             SelectedCity = city,
-            Data = null
+            Data = null,
+            Startdatum = start,
+            Einddatum = eind
         };
 
         if (!string.IsNullOrWhiteSpace(city))
@@ -43,6 +50,7 @@ public class WeatherController : Controller
             // Equivalent of showWeather(city) -> getWeatherData(city)
             // -> renderWeather(weather) from controller.js + view.js.
             viewModel.Data = await _weather.GetWeatherDataAsync(city);
+            viewModel.HistoricalData = await _db.GetStationDataAsync(city, start, eind);
         }
 
         return View(viewModel);

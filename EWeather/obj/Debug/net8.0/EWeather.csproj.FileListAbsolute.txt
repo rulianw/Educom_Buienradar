@@ -51,3 +51,4 @@ C:\xampp\htdocs\weerbericht_casus\EWeather\obj\Debug\net8.0\refint\EWeather.dll
 C:\xampp\htdocs\weerbericht_casus\EWeather\obj\Debug\net8.0\EWeather.pdb
 C:\xampp\htdocs\weerbericht_casus\EWeather\obj\Debug\net8.0\EWeather.genruntimeconfig.cache
 C:\xampp\htdocs\weerbericht_casus\EWeather\obj\Debug\net8.0\ref\EWeather.dll
+C:\xampp\htdocs\weerbericht_casus\EWeather\bin\Debug\net8.0\Newtonsoft.Json.dll

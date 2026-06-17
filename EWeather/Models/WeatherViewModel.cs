@@ -11,4 +11,8 @@ public class WeatherViewModel
     public List<string> Cities { get; set; } = new();
     public string? SelectedCity { get; set; }
     public WeatherData? Data { get; set; }
+
+    public DateTime Startdatum {get; set;} = DateTime.Today;
+    public DateTime? Einddatum {get; set;}
+    public List<WeatherData> HistoricalData {get; set;} = new();
 }
