@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EWeather</title>
+
+    @* Replaces the <link rel="stylesheet" href="style.css"> from index.html.
+        `~/` means "from the web root", and ASP.NET Core's static-file
+        middleware (configured in Program.cs) serves files from wwwroot. *@
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header></header>
+
+    <div class="logo">
+        <img src="~/eweather_logo.png" alt="Eweather logo" height="150" />
+    </div>
+
+    @* `RenderBody()` is replaced with the contents of the view that uses
+        this layout. The view file below (Index.cshtml) goes here. *@
+    <div class="container">
+        @RenderBody()
+    </div>
+</body>
+</html>

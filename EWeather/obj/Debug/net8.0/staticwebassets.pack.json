@@ -1,0 +1,57 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\actuele_temperatuur.svg",
+      "PackagePath": "staticwebassets\\actuele_temperatuur.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\eweather_logo.png",
+      "PackagePath": "staticwebassets\\eweather_logo.png"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\font\\helvetica-neue.woff",
+      "PackagePath": "staticwebassets\\font\\helvetica-neue.woff"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\gevoelstemperatuur.svg",
+      "PackagePath": "staticwebassets\\gevoelstemperatuur.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\grondtemperatuur.svg",
+      "PackagePath": "staticwebassets\\grondtemperatuur.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\regen_laatste_uur.svg",
+      "PackagePath": "staticwebassets\\regen_laatste_uur.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\windrichting.svg",
+      "PackagePath": "staticwebassets\\windrichting.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\weerbericht_casus\\EWeather\\wwwroot\\zonnekracht.svg",
+      "PackagePath": "staticwebassets\\zonnekracht.svg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EWeather.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EWeather.props",
+      "PackagePath": "build\\EWeather.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EWeather.props",
+      "PackagePath": "buildMultiTargeting\\EWeather.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EWeather.props",
+      "PackagePath": "buildTransitive\\EWeather.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

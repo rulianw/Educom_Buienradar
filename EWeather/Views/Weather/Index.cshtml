@@ -1,0 +1,89 @@
+@* This is the C# equivalent of index.html + view.js combined.
+    In the JS project the HTML was static and the weather grid was
+    injected into <div id="weatherResult"> by renderWeather().
+
+    In Razor, the page is re-rendered on the server on every request,
+    so we just put the markup directly in the view and let the model
+    (@model) provide the data. *@
+@model WeatherViewModel
+
+<div class="dropdown">
+    @* A normal <form> replaces the JS-driven <select onchange="...">.
+        When the user picks a city and submits, the browser performs
+        a GET to the same URL with ?city=..., which our controller's
+        Index(string? city) handles. *@
+    <form method="get" action="/Weather">
+        <select id="city-select" name="city" class="dropbtn" onchange="this.form.submit()">
+            <option value="">-- Kies een stad --</option>
+            @foreach (var city in Model.Cities)
+            {
+                @* `selected` keeps the previously chosen city in the dropdown. *@
+                if (!string.IsNullOrEmpty(Model.SelectedCity) &&
+                    string.Equals(city, Model.SelectedCity, StringComparison.OrdinalIgnoreCase))
+                {
+                    <option value="@city" selected="selected">@city</option>
+                }
+                else
+                {
+                    <option value="@city">@city</option>
+                }
+            }
+        </select>
+    </form>
+</div>
+
+@* ---- This section replaces renderWeather(weather) from view.js ---- *@
+@if (Model.Data is not null)
+{
+    <div id="weatherResult">
+        <div class="weather-grid">
+            <div class="weather-item">
+                <img src="~/actuele_temperatuur.svg" alt="Temperatuur" height="52" />
+                <div class="weather-text">
+                    <span class="value">@Model.Data.ActueleTemperatuur</span>
+                    <p class="label">Actuele temperatuur</p>
+                </div>
+            </div>
+            <div class="weather-item">
+                <img src="~/zonnekracht.svg" alt="Zonnekracht" height="52" />
+                <div class="weather-text">
+                    <span class="value">@Model.Data.Zonnekracht</span>
+                    <p class="label">Zonnekracht</p>
+                </div>
+            </div>
+            <div class="weather-item">
+                <img src="~/gevoelstemperatuur.svg" alt="Gevoelstemperatuur" height="52" />
+                <div class="weather-text">
+                    <span class="value">@Model.Data.Gevoelstemperatuur</span>
+                    <p class="label">Gevoelstemperatuur</p>
+                </div>
+            </div>
+            <div class="weather-item">
+                <img src="~/regen_laatste_uur.svg" alt="Regen" height="52" />
+                <div class="weather-text">
+                    <span class="value">@Model.Data.RegenLaatsteUur mm</span>
+                    <p class="label">Regen laatste uur</p>
+                </div>
+            </div>
+            <div class="weather-item">
+                <img src="~/grondtemperatuur.svg" alt="Grond temperatuur" height="52" />
+                <div class="weather-text">
+                    <span class="value">@Model.Data.GrondTemperatuur</span>
+                    <p class="label">Grond temperatuur</p>
+                </div>
+            </div>
+            <div class="weather-item">
+                <img src="~/windrichting.svg" alt="Windrichting" height="52" />
+                <div class="weather-text">
+                    <span class="value">@Model.Data.Windrichting</span>
+                    <p class="label">Windrichting</p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(Model.SelectedCity))
+{
+    @* If a city was selected but we could not find it. *@
+    <p style="text-align:center;">Geen gegevens gevonden voor "@Model.SelectedCity".</p>
+}

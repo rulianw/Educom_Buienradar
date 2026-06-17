@@ -1,0 +1,104 @@
+header {
+    background-color: #4AD6ED;
+	padding: 10px;
+}
+
+body{
+    font-family: helvetica, arial;
+    margin: 0;
+	padding: 0;
+	background-color: #FFFFFF;
+}
+
+.logo{
+    padding-top: 40px;
+    padding-left: 5px;
+    padding-bottom: 50px;
+}
+
+/* Make the dropdown fill its row so centering works */
+.dropdown {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0;  /* override the generic div padding that was shifting it */
+}
+
+.dropbtn .arrow {
+    font-size: 12px;
+    color: #888;  /* more specific selector wins over the button's color: #000 */
+}
+
+/* Pill-shaped, wide button */
+.dropbtn {
+    background-color: #FFFFFF;
+    color: #000000;
+    width: 500px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: solid;
+    border-width: 1.5px;
+    border-radius: 50px;        /* pill shape */
+    border-color: #cccccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;  /* text left, arrow right */
+    align-items: center;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #FFFFFF;
+    color: #000000;             /* keep text dark on hover */
+}
+
+/* Align dropdown content under the button */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: #FFFFFF;
+    width: 500px;               /* match button width */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 20px;
+    padding: 40px 60px;
+    background-color: #FFFFFF;
+    max-width: 600px;
+    margin: 30px auto;
+    border-radius: 16px;
+}
+
+.weather-item {
+    display: flex;
+    flex-direction: row;  /* ← this puts the icon left of the text */
+    align-items: center;
+    gap: 16px;
+}
+
+.weather-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.weather-item .value {
+    font-size: 48px;
+    font-weight: bold;
+    color: #4AD6ED;
+    line-height: 1;
+    margin: 0;
+}
+
+.weather-item .label {
+    font-size: 14px;
+    color: #000000;
+    margin: 4px 0 0 0;
+}
